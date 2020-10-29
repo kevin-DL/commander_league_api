@@ -79,6 +79,10 @@ $app->configure('app');
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
 
+$app->middleware([
+    \App\Http\Middleware\CorsMiddleware::class
+]);
+
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\FirebaseMiddleware::class,
 ]);
