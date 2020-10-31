@@ -15,3 +15,5 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('/formats', ['uses' => 'FormatsController@index', 'as' => 'formats.list']);

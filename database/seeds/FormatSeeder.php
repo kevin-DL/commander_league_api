@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class FormatSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,9 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call('UsersTableSeeder');
-        $this->call([
-            FormatSeeder::class
-        ]);
+        \App\Model\Format::create(['name' => 'Commander']);
+        \App\Model\Format::create(['name' => 'Brawl']);
     }
 }
