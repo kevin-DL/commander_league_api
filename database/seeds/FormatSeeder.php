@@ -1,5 +1,6 @@
 <?php
 
+use App\Model\Format;
 use Illuminate\Database\Seeder;
 
 class FormatSeeder extends Seeder
@@ -11,7 +12,7 @@ class FormatSeeder extends Seeder
      */
     public function run()
     {
-        \App\Model\Format::create(['name' => 'Commander']);
-        \App\Model\Format::create(['name' => 'Brawl']);
+        Format::firstOrCreate(['name' => 'Commander']);
+        Format::firstOrCreate(['name' => 'Brawl']);
     }
 }
