@@ -3,6 +3,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Profile;
 use App\User;
 use Closure;
 use Kreait\Laravel\Firebase\Facades\FirebaseAuth;
@@ -44,23 +45,23 @@ class FirebaseMiddleware
         try {
             $decoded = FirebaseAuth::verifyIdToken($token);
             $uid = $decoded->getClaim('sub');
-            $user = User::where('provider_id', $uid)->get();
-            $user = $user[0] ?? null;
+            $profile = Profile::where('uid', $uid)->get();
+            $profile = $profile[0] ?? null;
 
-            if (!$user) {
+            if (!$profile) {
                 /** @var \Kreait\Firebase\Auth\UserRecord $data */
                 $data = FirebaseAuth::getUser($uid);
-                $user = new User();
-                $user->provider_id = $data->uid;
-                $user->email = $data->email;
-                $user->name = $data->displayName ?? 'No Name User';
-                $user->image = $data->photoUrl ?? '';
-                $user->save();
+                $profile = new Profile();
+                $profile->uid = $data->uid;
+                $profile->display_name = $data->displayName ?? 'No Name User';
+                $profile->picture = $data->photoUrl ?? '';
+                $profile->save();
             }
 
-            return $user;
+            return $profile;
         } catch (\Exception $e) {
+            \Log::error($e->getMessage());
             return null;
-        };
+        }
     }
 }
