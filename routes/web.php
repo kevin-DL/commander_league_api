@@ -17,3 +17,5 @@ $router->get('/', function () use ($router) {
 });
 
 $router->get('/formats', ['uses' => 'FormatsController@index', 'as' => 'formats.list']);
+
+$router->get('/profiles', ['uses' => 'ProfilesController@current', 'as' => 'profiles.current', 'middleware' => 'auth']);
